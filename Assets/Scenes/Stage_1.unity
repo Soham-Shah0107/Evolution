@@ -272,6 +272,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356fa56ace3da44ff8d2ad9b4f3b89dd, type: 3}
+--- !u!1 &866983827 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 690197409260985816, guid: 356fa56ace3da44ff8d2ad9b4f3b89dd, type: 3}
+  m_PrefabInstance: {fileID: 759372166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &866983828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866983827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9141bd16096fb45b7aa736de990d549c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 16
+  length: 16
+  tree_height: 2.5
+  bear_speed: 3
+  kk_prefab: {fileID: 0}
+  bear_prefab: {fileID: 0}
+  water_prefab: {fileID: 0}
+  cave_prefab: {fileID: 0}
+  text_box: {fileID: 0}
+  scroll_bar: {fileID: 0}
+  new_screen: {fileID: 0}
+  grass: {fileID: 0}
 --- !u!1001 &969704181
 PrefabInstance:
   m_ObjectHideFlags: 0
