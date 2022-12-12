@@ -22,6 +22,7 @@ public class Stage_1 : MonoBehaviour
     public int width = 16;   // size of level (default 16 x 16 blocks)
     public int length = 16;
     public float tree_height = 1.5f;   // height of trees
+    public float mountain_height = 0.5f;
     public float bear_speed = 3.0f;     // bear velocity
     public GameObject kk_prefab;        //player prefab//king_kong prefab
     public GameObject bear_prefab;     //virus prefab// bear or we can do animals (make an array of animals and randomize it)prefab
@@ -30,6 +31,7 @@ public class Stage_1 : MonoBehaviour
     public GameObject tree_prefab;
     public GameObject text_box;
     public GameObject scroll_bar;
+    public GameObject mountain_prefab;
     private AudioSource source;
     public Canvas new_screen;
     public Material grass;
@@ -120,7 +122,7 @@ public class Stage_1 : MonoBehaviour
                     else{
                         if (grid[w, l] == null){ // does not have virus already or some other assignment from previous run
                             // CSP will involve assigning variables to one of the following four values (VIRUS is predefined for some tiles)
-                            List<TileType> candidate_assignments = new List<TileType> { TileType.TREES, TileType.FLOOR, TileType.WATER, TileType.HERBS, TileType.MOUNT};
+                            List<TileType> candidate_assignments = new List<TileType> { TileType.TREES, TileType.FLOOR, TileType.WATER, TileType.HERBS}; // Removed TIleType.Mount
                             Shuffle<TileType>(ref candidate_assignments);
 
                             grid[w, l] = candidate_assignments;
@@ -192,7 +194,8 @@ public class Stage_1 : MonoBehaviour
 
         grid[w, l] = new List<TileType>();
         grid[w, l].AddRange(old_assignment);
-        return areWeConsistent;
+        return true;
+        //return areWeConsistent;
     }
 
 
@@ -294,8 +297,9 @@ public class Stage_1 : MonoBehaviour
     
      
     void DrawDungeon(List<TileType>[,] solution){
+        int count = 0 ;
         // GetComponent<Renderer>().material = grass;
-        GetComponent<Renderer>().material.color = Color.green;
+        GetComponent<Renderer>().material.color = Color.grey;
 
         assignInitial(solution); // Assigning initial position
         int max_dist = assignFinal(); // Assigning Final Position
@@ -333,15 +337,32 @@ public class Stage_1 : MonoBehaviour
                     cave.GetComponent<BoxCollider>().size = new Vector3(3.0f, 3.0f, 3.0f);
                     //cave.AddComponent<House>();
                 }
-                // else if (solution[w, l][0] == TileType.WALL)
-                // {
-                //     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                //     GameObject cube = Instantiate(tree_prefab, new Vector3(0, 0, 0), Quaternion.identity);
-                //     cube.name = "WALL";
-                //     //cube.transform.localScale = new Vector3(bounds.size[0] / (float)width, storey_height, bounds.size[2] / (float)length);
-                //     //cube.transform.position = new Vector3(x + 0.5f, y + storey_height / 2.0f, z + 0.5f);
-                //     //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
-                // }
+                else if (solution[w, l][0] == TileType.MOUNT)
+                {
+                    Debug.Log(count);
+                    count = count+1; 
+                    //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    GameObject mountain = Instantiate(mountain_prefab, new Vector3(0, -5, 0), Quaternion.identity);
+                    mountain.name = "MOUNT";
+                    mountain.transform.localScale = new Vector3(0.2f ,0.6f, 0.2f);
+                // y= y + mountain_height / 2.0f
+                    mountain.transform.position = new Vector3(x + 0.5f, -2, z + 0.5f);
+                    mountain.AddComponent<BoxCollider>();
+                    //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
+                }
+                else if (solution[w, l][0] == TileType.TREES)
+                {
+                    Debug.Log(count);
+                    count = count+1; 
+                    //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    GameObject tree = Instantiate(tree_prefab, new Vector3(0, -5, 0), Quaternion.identity);
+                    tree.name = "TREE";
+                    tree.transform.localScale = new Vector3(0.2f ,0.6f, 0.2f);
+                // y= y + mountain_height / 2.0f
+                    tree.transform.position = new Vector3(x + 0.5f, -2, z + 0.5f);
+                    tree.AddComponent<BoxCollider>();
+                    //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
+                }
                 // else if (solution[w, l][0] == TileType.VIRUS)
                 // {
                 //     GameObject virus = Instantiate(virus_prefab, new Vector3(0, 0, 0), Quaternion.identity);

@@ -292,14 +292,16 @@ MonoBehaviour:
   width: 16
   length: 16
   tree_height: 2.5
+  mountain_height: 0.5
   bear_speed: 3
   kk_prefab: {fileID: 100006, guid: c6453f8e1f814744d8b94e5a6d1f9942, type: 3}
   bear_prefab: {fileID: 0}
   water_prefab: {fileID: 0}
   cave_prefab: {fileID: 100006, guid: bff9f12c2b78a19499683923993e62cc, type: 3}
-  tree_prefab: {fileID: 0}
+  tree_prefab: {fileID: 100000, guid: 0240d8417b13dd648a4709b9169abdfe, type: 3}
   text_box: {fileID: 0}
   scroll_bar: {fileID: 0}
+  mountain_prefab: {fileID: 1441160847464296, guid: c13335fbad29c4c459e2c93137e42312, type: 3}
   new_screen: {fileID: 0}
   grass: {fileID: 0}
 --- !u!1001 &969704181
