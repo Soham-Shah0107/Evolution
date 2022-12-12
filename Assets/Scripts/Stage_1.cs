@@ -21,17 +21,22 @@ public class Stage_1 : MonoBehaviour
 {
     public int width = 16;   // size of level (default 16 x 16 blocks)
     public int length = 16;
-    public float tree_height = 2.5f;   // height of trees
+    public float tree_height = 1.5f;   // height of trees
     public float bear_speed = 3.0f;     // bear velocity
     public GameObject kk_prefab;        //player prefab//king_kong prefab
     public GameObject bear_prefab;     //virus prefab// bear or we can do animals (make an array of animals and randomize it)prefab
     public GameObject water_prefab;    // 
     public GameObject cave_prefab;     //house prefab
+    public GameObject tree_prefab;
     public GameObject text_box;
     public GameObject scroll_bar;
     private AudioSource source;
     public Canvas new_screen;
     public Material grass;
+    int wr;
+    int lr; 
+    int wee;
+    int lee; 
 
     // fields/variables accessible from other scripts
     internal GameObject fps_player_obj;   // instance of FPS template
@@ -235,11 +240,149 @@ public class Stage_1 : MonoBehaviour
         return (pathexist(grid,sw + 1,sl,ew,el,visited) || pathexist(grid,sw - 1,sl,ew,el,visited)|| pathexist(grid,sw,sl+1,ew,el,visited)|| pathexist(grid,sw,sl - 1,ew,el,visited));
     }
 
+    void assignInitial(List<TileType>[,] solution){
+        while (true){
+            wr = Random.Range(1, width - 1);
+            lr = Random.Range(1, length - 1);
+            if (solution[wr, lr][0] == TileType.FLOOR)
+            {
+                float x = bounds.min[0] + (float)wr * (bounds.size[0] / (float)width);
+                float z = bounds.min[2] + (float)lr * (bounds.size[2] / (float)length);
+                fps_player_obj = Instantiate(kk_prefab);
+                fps_player_obj.name = "PLAYER";
+                // character is placed above the level so that in the beginning, he appears to fall down onto the maze
+                fps_player_obj.transform.position = new Vector3(x + 0.5f, 2.0f * tree_height, z + 0.5f); 
+                break;
+            }
+        }
+    }
+    int assignFinal(){
+        int max_dist = -1;
+        while (true){
+            if (wee != -1)
+                break;
+            for (int we = 0; we < width; we++){
+                for (int le = 0; le < length; le++){
+                    // skip corners
+                    if (we == 0 && le == 0)
+                        continue;
+                    if (we == 0 && le == length - 1)
+                        continue;
+                    if (we == width - 1 && le == 0)
+                        continue;
+                    if (we == width - 1 && le == length - 1)
+                        continue;
+
+                    if (we == 0 || le == 0 || wee == length - 1 || lee == length - 1){
+                        // randomize selection
+                        if (Random.Range(0.0f, 1.0f) < 0.1f){
+                            int dist = System.Math.Abs(wr - we) + System.Math.Abs(lr - le);
+                            if (dist > max_dist) // must be placed far away from the player
+                            {
+                                wee = we;
+                                lee = le;
+                                max_dist = dist;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return max_dist;
+
+    }   
     
+     
     void DrawDungeon(List<TileType>[,] solution){
         // GetComponent<Renderer>().material = grass;
         GetComponent<Renderer>().material.color = Color.green;
+
+        assignInitial(solution); // Assigning initial position
+        int max_dist = assignFinal(); // Assigning Final Position
+
+        //Djikstra
+
+        //Instantiating board- 
+        int w = 0;
+        for (float x = bounds.min[0]; x < bounds.max[0]; x += bounds.size[0] / (float)width - 1e-6f, w++)
+        {
+            int l = 0;
+            for (float z = bounds.min[2]; z < bounds.max[2]; z += bounds.size[2] / (float)length - 1e-6f, l++)
+            {
+                if ((w >= width) || (l >= width))
+                    continue;
+
+                float y = bounds.min[1];
+                //Debug.Log(w + " " + l + " " + h);
+                if ((w == wee) && (l == lee)) // this is the exit
+                {
+                    GameObject cave = Instantiate(cave_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                    cave.name = "CAVE";
+                    cave.transform.position = new Vector3(x + 0.5f, y, z + 0.5f);
+                    if (l == 0)
+                        cave.transform.Rotate(0.0f, 270.0f, 0.0f);
+                    else if (w == 0)
+                        cave.transform.Rotate(0.0f, 0.0f, 0.0f);
+                    else if (l == length - 1)
+                        cave.transform.Rotate(0.0f, 90.0f, 0.0f);
+                    else if (w == width - 1)
+                        cave.transform.Rotate(0.0f, 180.0f, 0.0f);
+
+                    cave.AddComponent<BoxCollider>();
+                    cave.GetComponent<BoxCollider>().isTrigger = true;
+                    cave.GetComponent<BoxCollider>().size = new Vector3(3.0f, 3.0f, 3.0f);
+                    //cave.AddComponent<House>();
+                }
+                // else if (solution[w, l][0] == TileType.WALL)
+                // {
+                //     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //     GameObject cube = Instantiate(tree_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                //     cube.name = "WALL";
+                //     //cube.transform.localScale = new Vector3(bounds.size[0] / (float)width, storey_height, bounds.size[2] / (float)length);
+                //     //cube.transform.position = new Vector3(x + 0.5f, y + storey_height / 2.0f, z + 0.5f);
+                //     //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
+                // }
+                // else if (solution[w, l][0] == TileType.VIRUS)
+                // {
+                //     GameObject virus = Instantiate(virus_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                //     virus.name = "COVID";
+                //     virus.transform.position = new Vector3(x + 0.5f, y + Random.Range(1.0f, storey_height / 2.0f), z + 0.5f);
+                //     virus.AddComponent<Virus>();
+                //     virus.GetComponent<Rigidbody>().mass = 10000;
+                // }
+                // else if (solution[w, l][0] == TileType.DRUG)
+                // {
+                //     GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                //     capsule.name = "DRUG";
+                //     capsule.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                //     capsule.transform.position = new Vector3(x + 0.5f, y + Random.Range(1.0f, storey_height / 2.0f), z + 0.5f);
+                //     capsule.GetComponent<Renderer>().material.color = Color.green;
+                //     capsule.AddComponent<Drug>();
+                // }
+                // else if (solution[w, l][0] == TileType.WATER)
+                // {
+                //     GameObject water = Instantiate(water_prefab, new Vector3(0, 0, 0), Quaternion.identity);
+                //     water.name = "WATER";
+                //     water.transform.localScale = new Vector3(0.5f * bounds.size[0] / (float)width, 1.0f, 0.5f * bounds.size[2] / (float)length);
+                //     water.transform.position = new Vector3(x + 0.5f, y + 0.1f, z + 0.5f);
+
+                //     GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //     cube.name = "WATER_BOX";
+                //     cube.transform.localScale = new Vector3(bounds.size[0] / (float)width, storey_height / 20.0f, bounds.size[2] / (float)length);
+                //     cube.transform.position = new Vector3(x + 0.5f, y, z + 0.5f);
+                //     cube.GetComponent<Renderer>().material.color = Color.grey;
+                //     cube.GetComponent<BoxCollider>().size = new Vector3(1.1f, 20.0f * storey_height, 1.1f);
+                //     cube.GetComponent<BoxCollider>().isTrigger = true;
+                //     cube.AddComponent<Water>();
+                // }
+            }
+        }
     }
+
+
+
+
+    
     
     
     // bool NoWallsCloseToBear(List<TileType>[,] grid)
@@ -265,7 +408,8 @@ public class Stage_1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
     }
 }
