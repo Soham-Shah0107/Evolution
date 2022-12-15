@@ -14,7 +14,9 @@ enum TileType
     WATER = 2,
     HERBS = 3,
     BEARS = 4,
-    MOUNT = 5,
+    BUSHES = 5,
+    MOUNT = 6,
+    
 }
 // I have taken the Level.cs and tried to replicate it here 
 public class Stage_1 : MonoBehaviour
@@ -31,7 +33,9 @@ public class Stage_1 : MonoBehaviour
     public GameObject tree_prefab;
     public GameObject text_box;
     public GameObject scroll_bar;
+    public GameObject bushes_prefab;
     public GameObject mountain_prefab;
+    public GameObject kid; 
     private AudioSource source;
     public Canvas new_screen;
     public Material grass;
@@ -122,7 +126,7 @@ public class Stage_1 : MonoBehaviour
                     else{
                         if (grid[w, l] == null){ // does not have virus already or some other assignment from previous run
                             // CSP will involve assigning variables to one of the following four values (VIRUS is predefined for some tiles)
-                            List<TileType> candidate_assignments = new List<TileType> { TileType.TREES, TileType.FLOOR, TileType.WATER, TileType.HERBS}; // Removed TIleType.Mount
+                            List<TileType> candidate_assignments = new List<TileType> { TileType.TREES, TileType.FLOOR, TileType.WATER, TileType.HERBS, TileType.BUSHES}; // Removed TIleType.Mount
                             Shuffle<TileType>(ref candidate_assignments);
 
                             grid[w, l] = candidate_assignments;
@@ -161,23 +165,24 @@ public class Stage_1 : MonoBehaviour
     }
 
     bool TooFew(List<TileType>[,] grid){
-        int[] number_of_potential_assignments = new int[] { 0, 0, 0, 0, 0, 0 };
-        for (int w = 0; w < width; w++)
-            for (int l = 0; l < length; l++)
-            {
-                if (w == 0 || l == 0 || w == width - 1 || l == length - 1)
-                    continue;
-                for (int i = 0; i < grid[w, l].Count; i++)
-                    number_of_potential_assignments[(int)grid[w, l][i]]++;
-            }
+        // int[] number_of_potential_assignments = new int[] { 0, 0, 0, 0, 0, 0 };
+        // for (int w = 0; w < width; w++)
+        //     for (int l = 0; l < length; l++)
+        //     {
+        //         if (w == 0 || l == 0 || w == width - 1 || l == length - 1)
+        //             continue;
+        //         for (int i = 0; i < grid[w, l].Count; i++)
+        //             number_of_potential_assignments[(int)grid[w, l][i]]++;
+        //     }
 
-        if ((number_of_potential_assignments[(int)TileType.TREES] < (width * length) / 4) ||
-             (number_of_potential_assignments[(int)TileType.WATER] < num_bears / 4) ||
-             (number_of_potential_assignments[(int)TileType.HERBS] < num_bears / 4)||
-             (number_of_potential_assignments[(int)TileType.MOUNT] < (width * length) / 4))
-            return true;
-        else
-            return false;
+        // if ((number_of_potential_assignments[(int)TileType.TREES] < (width * length) / 4) ||
+        //      (number_of_potential_assignments[(int)TileType.WATER] < num_bears / 4) ||
+        //      (number_of_potential_assignments[(int)TileType.HERBS] < num_bears / 4)||
+        //      (number_of_potential_assignments[(int)TileType.MOUNT] < (width * length) / 4))
+        //     return true;
+        // else
+        //     return false;
+        return true;
     }
 
     bool CheckConsistency(List<TileType>[,] grid, int[] cell_pos, TileType t)
@@ -299,7 +304,7 @@ public class Stage_1 : MonoBehaviour
     void DrawDungeon(List<TileType>[,] solution){
         int count = 0 ;
         // GetComponent<Renderer>().material = grass;
-        GetComponent<Renderer>().material.color = Color.grey;
+        //GetComponent<Renderer>().material.color = Color.grey;
 
         assignInitial(solution); // Assigning initial position
         int max_dist = assignFinal(); // Assigning Final Position
@@ -363,6 +368,20 @@ public class Stage_1 : MonoBehaviour
                     tree.AddComponent<BoxCollider>();
                     //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
                 }
+                // else if (solution[w, l][0] == TileType.BUSHES)
+                // {
+                //     Debug.Log(count);
+                //     count = count+1; 
+                //     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //     GameObject bush = Instantiate(bushes_prefab, new Vector3(0, -5, 0), Quaternion.identity);
+                //     bush.name = "BUSH";
+                //     bush.transform.localScale = new Vector3(0.2f ,0.6f, 0.2f);
+                // // y= y + mountain_height / 2.0f
+                //     bush.transform.position = new Vector3(x + 0.5f, -2, z + 0.5f);
+                //     bush.AddComponent<BoxCollider>();
+                //     //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
+                // }
+                
                 // else if (solution[w, l][0] == TileType.VIRUS)
                 // {
                 //     GameObject virus = Instantiate(virus_prefab, new Vector3(0, 0, 0), Quaternion.identity);

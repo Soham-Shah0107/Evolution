@@ -270,6 +270,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 690197409260985822, guid: 356fa56ace3da44ff8d2ad9b4f3b89dd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fc08b59da6d4449f5b9e5fb83f90e00d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356fa56ace3da44ff8d2ad9b4f3b89dd, type: 3}
 --- !u!1 &866983827 stripped
@@ -298,10 +302,12 @@ MonoBehaviour:
   bear_prefab: {fileID: 0}
   water_prefab: {fileID: 0}
   cave_prefab: {fileID: 100006, guid: bff9f12c2b78a19499683923993e62cc, type: 3}
-  tree_prefab: {fileID: 100000, guid: 0240d8417b13dd648a4709b9169abdfe, type: 3}
+  tree_prefab: {fileID: 114418, guid: 8b2d47fdc2e25ac4f9721480a68bbefa, type: 3}
   text_box: {fileID: 0}
   scroll_bar: {fileID: 0}
+  bushes_prefab: {fileID: 100002, guid: efdc2f0914206bb4eb98f617f4ae452c, type: 3}
   mountain_prefab: {fileID: 1441160847464296, guid: c13335fbad29c4c459e2c93137e42312, type: 3}
+  kid: {fileID: 0}
   new_screen: {fileID: 0}
   grass: {fileID: 0}
 --- !u!1001 &969704181
