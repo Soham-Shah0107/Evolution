@@ -26,7 +26,7 @@ public class Stage_1 : MonoBehaviour
     public float tree_height = 1.5f;   // height of trees
     public float mountain_height = 0.5f;
     public float bear_speed = 3.0f;     // bear velocity
-    public GameObject kk_prefab;        //player prefab//king_kong prefab
+    //public GameObject kk_prefab;        //player prefab//king_kong prefab
     public GameObject bear_prefab;     //virus prefab// bear or we can do animals (make an array of animals and randomize it)prefab
     public GameObject water_prefab;    // 
     public GameObject cave_prefab;     //house prefab
@@ -256,10 +256,10 @@ public class Stage_1 : MonoBehaviour
             {
                 float x = bounds.min[0] + (float)wr * (bounds.size[0] / (float)width);
                 float z = bounds.min[2] + (float)lr * (bounds.size[2] / (float)length);
-                fps_player_obj = Instantiate(kk_prefab);
-                fps_player_obj.name = "PLAYER";
+                //fps_player_obj = Instantiate(kk_prefab);
+                //fps_player_obj.name = "PLAYER";
                 // character is placed above the level so that in the beginning, he appears to fall down onto the maze
-                fps_player_obj.transform.position = new Vector3(x + 0.5f, 2.0f * tree_height, z + 0.5f); 
+                //fps_player_obj.transform.position = new Vector3(x + 0.5f, 2.0f * tree_height, z + 0.5f); 
                 break;
             }
         }
