@@ -35,6 +35,7 @@ public class Stage_1 : MonoBehaviour
     public GameObject scroll_bar;
     public GameObject bushes_prefab;
     public GameObject mountain_prefab;
+    public GameObject tiger_prefab;
     public GameObject kid; 
     private AudioSource source;
     public Canvas new_screen;
@@ -145,7 +146,7 @@ public class Stage_1 : MonoBehaviour
     }
 
     bool TooMany(List<TileType>[,] grid){
-        int[] number_of_assigned_elements = new int[] { 0, 0, 0, 0, 0, 0};
+        int[] number_of_assigned_elements = new int[] { 0, 0, 0, 0, 0, 0, 0};
         for (int w = 0; w < width; w++)
             for (int l = 0; l < length; l++) 
             {
@@ -158,31 +159,31 @@ public class Stage_1 : MonoBehaviour
         if ((number_of_assigned_elements[(int)TileType.TREES] > num_bears * 10) ||
              (number_of_assigned_elements[(int)TileType.WATER] > (width + length) / 4) ||
              (number_of_assigned_elements[(int)TileType.HERBS] >= num_bears / 2) ||
-             (number_of_assigned_elements[(int)TileType.MOUNT] > num_bears * 10))
+             (number_of_assigned_elements[(int)TileType.MOUNT] > num_bears * 10) ||
+             (number_of_assigned_elements[(int)TileType.BUSHES] > (width + length)/4))
             return true;
         else
             return false;
     }
 
     bool TooFew(List<TileType>[,] grid){
-        // int[] number_of_potential_assignments = new int[] { 0, 0, 0, 0, 0, 0 };
-        // for (int w = 0; w < width; w++)
-        //     for (int l = 0; l < length; l++)
-        //     {
-        //         if (w == 0 || l == 0 || w == width - 1 || l == length - 1)
-        //             continue;
-        //         for (int i = 0; i < grid[w, l].Count; i++)
-        //             number_of_potential_assignments[(int)grid[w, l][i]]++;
-        //     }
+        int[] number_of_potential_assignments = new int[] { 0, 0, 0, 0, 0, 0, 0};
+        for (int w = 0; w < width; w++)
+            for (int l = 0; l < length; l++)
+            {
+                if (w == 0 || l == 0 || w == width - 1 || l == length - 1)
+                    continue;
+                for (int i = 0; i < grid[w, l].Count; i++)
+                    number_of_potential_assignments[(int)grid[w, l][i]]++;
+            }
 
-        // if ((number_of_potential_assignments[(int)TileType.TREES] < (width * length) / 4) ||
-        //      (number_of_potential_assignments[(int)TileType.WATER] < num_bears / 4) ||
-        //      (number_of_potential_assignments[(int)TileType.HERBS] < num_bears / 4)||
-        //      (number_of_potential_assignments[(int)TileType.MOUNT] < (width * length) / 4))
-        //     return true;
-        // else
-        //     return false;
-        return true;
+        if ((number_of_potential_assignments[(int)TileType.TREES] < (width * length) / 4) ||
+             (number_of_potential_assignments[(int)TileType.WATER] < num_bears / 4) ||
+             (number_of_potential_assignments[(int)TileType.HERBS] < num_bears / 4)||
+             (number_of_potential_assignments[(int)TileType.MOUNT] < (width * length) / 4))
+            return true;
+        else
+            return false;
     }
 
     bool CheckConsistency(List<TileType>[,] grid, int[] cell_pos, TileType t)
@@ -195,12 +196,12 @@ public class Stage_1 : MonoBehaviour
         grid[w, l] = new List<TileType> { t };
 
 		// note that we negate the functions here i.e., check if we are consistent with the constraints we want
-        bool areWeConsistent = !TooFew(grid) && !TooMany(grid);
+        // bool areWeConsistent = !TooFew(grid) && !TooMany(grid);
 
         grid[w, l] = new List<TileType>();
         grid[w, l].AddRange(old_assignment);
+        // return areWeConsistent;
         return true;
-        //return areWeConsistent;
     }
 
 
@@ -296,7 +297,8 @@ public class Stage_1 : MonoBehaviour
                 }
             }
         }
-        return max_dist;
+        
+       return max_dist;
 
     }   
     
