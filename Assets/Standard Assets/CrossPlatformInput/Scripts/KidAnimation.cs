@@ -18,13 +18,14 @@ public class KidAnimation : MonoBehaviour
         animation_controller = GetComponent<Animator>();
         character_controller = GetComponent<CharacterController>();   
         movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
-        walking_velocity = 1.5f;
+        walking_velocity = 2.5f;
         velocity = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if(isIdle){
             velocity = 0.0f;
         }
@@ -112,5 +113,6 @@ public class KidAnimation : MonoBehaviour
         GetComponent<Rigidbody>().velocity = reflectedVelocity;
 
     }
+  
    
 }

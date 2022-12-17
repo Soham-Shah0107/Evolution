@@ -29,9 +29,32 @@ public class bearMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player){
-            Debug.Log("Intereseitng??");
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1){
+            //Debug.Log("Should be attacking!!");
+            animation_controller.SetTrigger("Attack1");
+            Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
+            float singleStep = velocity * Time.deltaTime;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+            
+        }
+        else{
+            animation_controller.SetBool("Idle",true);
+        }
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/1.5f){
+
+            animation_controller.SetBool("Run Forward",true);
+            Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
+            float singleStep = velocity * Time.deltaTime;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+            run();
+        }
+        else{
+            animation_controller.SetBool("Run Forward",false);
+            animation_controller.SetBool("Idle",true);
+        }
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/3.0f){
             animation_controller.SetBool("WalkForward",true);
             Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
             float singleStep = velocity * Time.deltaTime;
@@ -39,6 +62,11 @@ public class bearMovement : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(newDirection);
             walk_forward();
         }
+        else{
+            animation_controller.SetBool("Run Forward",false);
+            animation_controller.SetBool("Idle",true);
+        }
+
         xdirection = Mathf.Sin(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
         zdirection = Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
        // movement_direction = new Vector3(xdirection, 0.0f, zdirection);
@@ -54,5 +82,21 @@ public class bearMovement : MonoBehaviour
             velocity-=0.2f;
         }
         transform.position=new Vector3(transform.position.x+ xdirection*velocity*Time.deltaTime, transform.position.y, transform.position.z+zdirection*velocity*Time.deltaTime);
+    }
+    public void run(){
+        if(velocity<walking_velocity*1.5){
+            velocity+=0.1f;
+        }
+        else{
+            velocity-=0.2f;
+        }
+        transform.position=new Vector3(transform.position.x+ xdirection*velocity*Time.deltaTime, transform.position.y, transform.position.z+zdirection*velocity*Time.deltaTime);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "player")
+        {
+            Debug.Log("Namaster");
+        }
     }
 }
