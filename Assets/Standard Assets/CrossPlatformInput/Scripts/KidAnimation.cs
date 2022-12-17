@@ -102,4 +102,15 @@ public class KidAnimation : MonoBehaviour
         }
         transform.position=new Vector3(transform.position.x+ xdirection*velocity*Time.deltaTime, transform.position.y, transform.position.z+zdirection*velocity*Time.deltaTime);
     }
+    void OnCollisionEnter(Collision collision){
+         Vector3 normal = collision.contacts[0].normal;
+
+    // Reflect the object's velocity off the surface
+         Vector3 reflectedVelocity = Vector3.Reflect(GetComponent<Rigidbody>().velocity, normal);
+
+    // Set the object's velocity to the reflected velocity
+        GetComponent<Rigidbody>().velocity = reflectedVelocity;
+
+    }
+   
 }

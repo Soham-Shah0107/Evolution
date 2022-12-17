@@ -84,9 +84,6 @@ public class Stage_1 : MonoBehaviour
         function_calls = 0;
         num_bears = 0;
         player_health = 1.0f;
-        // num_virus_hit_concurrently = 0;
-        // virus_landed_on_player_recently = false;
-        // timestamp_virus_landed = float.MaxValue;
         herb_landed_on_player_recently = false;
         player_is_on_water = false;
         player_entered_cave = false;
@@ -323,7 +320,7 @@ public class Stage_1 : MonoBehaviour
 
                 float y = bounds.min[1];
                 //Debug.Log(w + " " + l + " " + h);
-                if ((w == wee) && (l == lee)) // this is the exit
+                if ((w == wee-3) && (l == lee-3)) // this is the exit
                 {
                     GameObject cave = Instantiate(cave_prefab, new Vector3(0, 0, 0), Quaternion.identity);
                     cave.name = "CAVE";
@@ -365,7 +362,11 @@ public class Stage_1 : MonoBehaviour
                     tree.transform.localScale = new Vector3(0.2f ,0.6f, 0.2f);
                 // y= y + mountain_height / 2.0f
                     tree.transform.position = new Vector3(x + 0.5f, -2, z + 0.5f);
-                    tree.AddComponent<BoxCollider>();
+                    BoxCollider boxc = tree.AddComponent<BoxCollider>();
+                    tree.AddComponent<noPassingThrough>();
+                    boxc.isTrigger = true;
+                    // Rigidbody rigid = tree.AddComponent<Rigidbody> (); // To make trees fall
+                    // rigid.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
                     //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
                 }
                 // else if (solution[w, l][0] == TileType.BUSHES)
