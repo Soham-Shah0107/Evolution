@@ -303,7 +303,6 @@ public class Stage_1 : MonoBehaviour
     void DrawDungeon(List<TileType>[,] solution){
         int count = 0 ;
         // GetComponent<Renderer>().material = grass;
-<<<<<<< Updated upstream
         //GetComponent<Renderer>().material.color = Color.grey;
 
         assignInitial(solution); // Assigning initial position
@@ -344,7 +343,7 @@ public class Stage_1 : MonoBehaviour
                 }
                 else if (solution[w, l][0] == TileType.MOUNT)
                 {
-                    Debug.Log(count);
+                    // Debug.Log(count);
                     count = count+1; 
                     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     GameObject mountain = Instantiate(mountain_prefab, new Vector3(0, -5, 0), Quaternion.identity);
@@ -357,7 +356,7 @@ public class Stage_1 : MonoBehaviour
                 }
                 else if (solution[w, l][0] == TileType.TREES)
                 {
-                    Debug.Log(count);
+                    // Debug.Log(count);
                     count = count+1; 
                     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     GameObject tree = Instantiate(tree_prefab, new Vector3(0, -5, 0), Quaternion.identity);
@@ -419,26 +418,6 @@ public class Stage_1 : MonoBehaviour
                 //     cube.GetComponent<BoxCollider>().isTrigger = true;
                 //     cube.AddComponent<Water>();
                 // }
-=======
-        GetComponent<Renderer>().material = grass;
-
-        int wr = 0;
-        int lr = 0;
-        while (true) // try until a valid position is sampled
-        {
-            wr = Random.Range(1, width - 1);
-            lr = Random.Range(1, length - 1);
-
-            if (solution[wr, lr][0] == TileType.FLOOR)
-            {
-                float x = bounds.min[0] + (float)wr * (bounds.size[0] / (float)width);
-                float z = bounds.min[2] + (float)lr * (bounds.size[2] / (float)length);
-                kk_obj = Instantiate(kk_prefab);
-                kk_obj.name = "PLAYER";
-                // character is placed above the level so that in the beginning, he appears to fall down onto the maze
-                kk_obj.transform.position = new Vector3(x + 0.5f, 2.0f * tree_height, z + 0.5f); 
-                break;
->>>>>>> Stashed changes
             }
         }
     }

@@ -61,33 +61,33 @@ public class KidAnimation : MonoBehaviour
             animation_controller.SetBool("toJump",false);
         }
         if(Input.GetKey(KeyCode.LeftArrow)){
-                Debug.Log("bruh");
-                transform.Rotate(0.0f, -0.5f, 0.0f);
+                // Debug.Log("bruh");
+                GetComponent<Rigidbody>().rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y-0.5f, transform.rotation.eulerAngles.z);
             }
         if(Input.GetKey(KeyCode.RightArrow)){
-            transform.Rotate(0.0f, 0.5f, 0.0f);
+GetComponent<Rigidbody>().rotation = Quaternion.Euler(transform.rotation.eulerAngles.x,transform.rotation.eulerAngles.y + 0.5f, transform.rotation.eulerAngles.z);
         }
         xdirection = Mathf.Sin(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
         zdirection = Mathf.Cos(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
         movement_direction = new Vector3(xdirection, 0.0f, zdirection);
     }
     public void walk_forward(){
-        Debug.Log("transform check step 2");
+        // Debug.Log("transform check step 2");
         if(velocity<walking_velocity){
             velocity+=0.1f;
         }
         else{
             velocity-=0.2f;
         }
-        Debug.Log(transform.position+" is position");
-        transform.position=new Vector3(transform.position.x+ xdirection*velocity*Time.deltaTime, transform.position.y, transform.position.z+zdirection*velocity*Time.deltaTime);
+        // Debug.Log(transform.position+" is position");
+        GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * velocity * Time.deltaTime, 0.0f, zdirection * velocity * Time.deltaTime));
     }
     
     public void run(){
         if(velocity<walking_velocity*2.0){
             velocity+=0.35f;
         }
-        transform.position=new Vector3(transform.position.x+ xdirection*velocity*Time.deltaTime, transform.position.y, transform.position.z+zdirection*velocity*Time.deltaTime);
+        GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * velocity * Time.deltaTime, 0.0f, zdirection * velocity * Time.deltaTime));
     }
     public void jump(){ // Very useless state
         if(velocity<walking_velocity*3.0){
@@ -101,7 +101,7 @@ public class KidAnimation : MonoBehaviour
         if(velocity>-1*walking_velocity/2.0){
             velocity-=0.02f;
         }
-        transform.position=new Vector3(transform.position.x+ xdirection*velocity*Time.deltaTime, transform.position.y, transform.position.z+zdirection*velocity*Time.deltaTime);
+        GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * velocity * Time.deltaTime, 0.0f, zdirection * velocity * Time.deltaTime));
     }
     void OnCollisionEnter(Collision collision){
          Vector3 normal = collision.contacts[0].normal;
@@ -111,6 +111,9 @@ public class KidAnimation : MonoBehaviour
 
     // Set the object's velocity to the reflected velocity
         GetComponent<Rigidbody>().velocity = reflectedVelocity;
+        if (collision.gameObject.name == "player"){
+            Debug.Log("Collided with player");
+        }
 
     }
   
