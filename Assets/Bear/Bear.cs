@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bearMovement : MonoBehaviour
+public class Bear : MonoBehaviour
 {
     private GameObject fps_player_obj;
     private GameObject level;

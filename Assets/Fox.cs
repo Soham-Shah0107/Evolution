@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bearMovement : MonoBehaviour
+public class Fox : MonoBehaviour
 {
+    // Start is called before the first frame update
     private GameObject fps_player_obj;
     private GameObject level;
     private float radius_of_search_for_player;
@@ -100,22 +101,5 @@ public class bearMovement : MonoBehaviour
             velocity-=0.2f;
         }
        transform.position=new Vector3(transform.position.x+ xdirection*velocity*Time.deltaTime, transform.position.y, transform.position.z+zdirection*velocity*Time.deltaTime);
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Debug.Log("yes");
-        // Debug.Log(collision.contacts);
-        Vector3 normal = collision.contacts[0].normal;
-        Debug.Log("Yes");
-        GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position[0] , 0.0f , GetComponent<Rigidbody>().position[2]));
-    // Reflect the object's velocity off the surface
-         Vector3 reflectedVelocity = Vector3.Reflect(GetComponent<Rigidbody>().velocity, normal);
-
-    // Set the object's velocity to the reflected velocity
-        GetComponent<Rigidbody>().velocity = reflectedVelocity;
-        if (collision.gameObject.name == "player")
-        {
-            Debug.Log("Namaster");
-        }
     }
 }

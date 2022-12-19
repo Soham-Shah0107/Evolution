@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class KidAnimation : MonoBehaviour
 {
     private Animator animation_controller;
+    private GameObject bear;
     private CharacterController character_controller;
     public float walking_velocity;
     public float velocity;
@@ -12,6 +12,8 @@ public class KidAnimation : MonoBehaviour
     public float zdirection;
     public Vector3 movement_direction;
     public bool isIdle;
+    Collider m_ObjectCollider;
+    // bearMovement bearClass = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +106,21 @@ GetComponent<Rigidbody>().rotation = Quaternion.Euler(transform.rotation.eulerAn
         GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * velocity * Time.deltaTime, 0.0f, zdirection * velocity * Time.deltaTime));
     }
     void OnCollisionEnter(Collision collision){
+        if (collision.gameObject.name == "Bear"){
+            Debug.Log("bear collided with player");
+            //Figure out a way to get xdirection and ydirection from Bear.cs
+            //Tried alot do not get it
+            
+            // bear = GameObject.Find("Bear");
+            // Debug.Log(bear.GetComponent("Bear Movements").velocity);
+            // Debug.Log(collision.gameObject.GetComponent<Bear>());
+            // int zdir = collision.gameObject.GetComponent("bearMovement").zdirection;
+            // // .GetComponent<bearMovement>().Zdirection;
+            // int xdir = collision.gameObject.GetComponent("bearMovement").xdirection;
+            // GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdir* 5 * Time.deltaTime, 0.0f, zdir * 5 * Time.deltaTime));
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
+            m_ObjectCollider = GetComponent<Collider>();
+        }
          Vector3 normal = collision.contacts[0].normal;
 
     // Reflect the object's velocity off the surface
@@ -111,9 +128,7 @@ GetComponent<Rigidbody>().rotation = Quaternion.Euler(transform.rotation.eulerAn
 
     // Set the object's velocity to the reflected velocity
         GetComponent<Rigidbody>().velocity = reflectedVelocity;
-        if (collision.gameObject.name == "player"){
-            Debug.Log("Collided with player");
-        }
+        
 
     }
   
