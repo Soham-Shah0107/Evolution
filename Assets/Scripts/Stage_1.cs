@@ -46,7 +46,7 @@ public class Stage_1 : MonoBehaviour
     int lee; 
 
     // fields/variables accessible from other scripts
-    internal GameObject fps_player_obj;   // instance of FPS template
+    internal GameObject kk_obj;   // instance of FPS template
     internal float player_health = 1.0f;  // player health in range [0.0, 1.0]
     // internal int num_virus_hit_concurrently = 0;            // how many viruses hit the player before washing them off
     // internal bool virus_landed_on_player_recently = false;  // has virus hit the player? if yes, a timer of 5sec starts before infection
@@ -343,7 +343,7 @@ public class Stage_1 : MonoBehaviour
                 }
                 else if (solution[w, l][0] == TileType.MOUNT)
                 {
-                    Debug.Log(count);
+                    // Debug.Log(count);
                     count = count+1; 
                     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     GameObject mountain = Instantiate(mountain_prefab, new Vector3(0, -5, 0), Quaternion.identity);
@@ -356,7 +356,7 @@ public class Stage_1 : MonoBehaviour
                 }
                 else if (solution[w, l][0] == TileType.TREES)
                 {
-                    Debug.Log(count);
+                    // Debug.Log(count);
                     count = count+1; 
                     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     GameObject tree = Instantiate(tree_prefab, new Vector3(0, -5, 0), Quaternion.identity);
