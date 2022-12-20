@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fox : MonoBehaviour
+public class tigerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     private GameObject fps_player_obj;
     private GameObject level;
     private float radius_of_search_for_player;
-    public float fox_speed;
+    public float tiger_speed;
     private Animator animation_controller;
     private CharacterController character_controller;
     public float velocity = 0.0f; 
@@ -26,7 +26,7 @@ public class Fox : MonoBehaviour
         fps_player_obj = GameObject.Find("player");
         Bounds bounds = level.GetComponent<Collider>().bounds;
         radius_of_search_for_player = (bounds.size.x + bounds.size.z) / 10.0f;
-        fox_speed = level.GetComponent<Stage_1>().fox_speed;
+        tiger_speed = level.GetComponent<Stage_1>().tiger_speed;
        // fps_player_obj = level.fps_player_obj;
     }
 
@@ -40,7 +40,7 @@ public class Fox : MonoBehaviour
         if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1){
             // Debug.Log("Should be attacking!!");
             //animation_controller.SetTrigger("Attack1");
-            animation_controller.SetBool("attack",true);
+            animation_controller.SetBool("hit",true);
             animation_controller.SetBool("idle",false);
             Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
             float singleStep = velocity * Time.deltaTime;
@@ -49,13 +49,13 @@ public class Fox : MonoBehaviour
             
         }
         else{
-            animation_controller.SetBool("attack",false);
+            animation_controller.SetBool("hit",false);
             animation_controller.SetBool("idle",true);
         }
 
-        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/2.5f){
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/1.25f){
 
-            animation_controller.SetBool("toRun",true);
+            animation_controller.SetBool("run",true);
             animation_controller.SetBool("idle",false);
             Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
             float singleStep = velocity * Time.deltaTime;
@@ -64,10 +64,10 @@ public class Fox : MonoBehaviour
             run();
         }
         else{
-            animation_controller.SetBool("toRun",false);
+            animation_controller.SetBool("run",false);
             animation_controller.SetBool("idle",true);
         }
-        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/5.0f){
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/3.0f){
         //    Debug.Log("walk forward");
             animation_controller.SetBool("walk",true);
             animation_controller.SetBool("idle",false);
