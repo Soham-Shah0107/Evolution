@@ -11,7 +11,7 @@ public class Bear : MonoBehaviour
     private Animator animation_controller;
     private CharacterController character_controller;
     public float velocity = 0.0f; 
-    public float walking_velocity = 1f;
+    public float walking_velocity = 5f;
     public float xdirection;
     public float zdirection;
      
@@ -32,15 +32,22 @@ public class Bear : MonoBehaviour
     }
 
     // Update is called once per frame
+    IEnumerator WaitForAttackToFinish(Vector3 pos){
+        yield return new WaitForSeconds(1);
+        fps_player_obj.transform.position = new Vector3(pos.x-9, pos.y, pos.z);
+    }
     void Update()
     {
-        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1){
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1.5){
             // Debug.Log("Should be attacking!!");
             animation_controller.SetTrigger("Attack1");
             Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
             float singleStep = velocity * Time.deltaTime;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
+            Vector3 pos = fps_player_obj.transform.position;
+            // We should have a textbox on top saying bear strike.
+            StartCoroutine(WaitForAttackToFinish(pos));
             
         }
         else{
@@ -103,16 +110,16 @@ public class Bear : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        // Debug.Log("yes");
+        Debug.Log("yes");
         // Debug.Log(collision.contacts);
         Vector3 normal = collision.contacts[0].normal;
         Debug.Log("Yes");
-        GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position[0] , 0.0f , GetComponent<Rigidbody>().position[2]));
+        //GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position[0] , 0.0f , GetComponent<Rigidbody>().position[2]));
     // Reflect the object's velocity off the surface
-         Vector3 reflectedVelocity = Vector3.Reflect(GetComponent<Rigidbody>().velocity, normal);
+        // Vector3 reflectedVelocity = Vector3.Reflect(GetComponent<Rigidbody>().velocity, normal);
 
     // Set the object's velocity to the reflected velocity
-        GetComponent<Rigidbody>().velocity = reflectedVelocity;
+        //GetComponent<Rigidbody>().velocity = reflectedVelocity;
         if (collision.gameObject.name == "player")
         {
             Debug.Log("Namaster");
