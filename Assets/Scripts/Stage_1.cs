@@ -365,10 +365,13 @@ public class Stage_1 : MonoBehaviour
                 // y= y + mountain_height / 2.0f
                     tree.transform.position = new Vector3(x + 0.5f, -2, z + 0.5f);
                     BoxCollider boxc = tree.AddComponent<BoxCollider>();
+                    boxc.center = new Vector3(0,0,0);
+                    boxc.size = new Vector3(1,1,1);
                     tree.AddComponent<noPassingThrough>();
                     boxc.isTrigger = true;
                     // Rigidbody rigid = tree.AddComponent<Rigidbody> (); // To make trees fall
-                    // rigid.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+                    // rigid.collisionDetectionMode = CollisionDetectionMode.Continuous;
+                    // rigid.isKinematic = false;
                     //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
                 }
                 // else if (solution[w, l][0] == TileType.BUSHES)
