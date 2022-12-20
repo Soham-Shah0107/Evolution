@@ -38,6 +38,7 @@ public class Bear : MonoBehaviour
     }
     void Update()
     {
+        
         if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1.5){
             // Debug.Log("Should be attacking!!");
             animation_controller.SetTrigger("Attack1");
