@@ -25,7 +25,9 @@ public class Stage_1 : MonoBehaviour
     public int length = 16;
     public float tree_height = 1.5f;   // height of trees
     public float mountain_height = 0.5f;
-    public float bear_speed = 3.0f;     // bear velocity
+    public float bear_speed = 2.0f;     // bear velocity
+    public float fox_speed = 3.0f; 
+    public float tiger_speed = 4.0f; 
     //public GameObject kk_prefab;        //player prefab//king_kong prefab
     public GameObject bear_prefab;     //virus prefab// bear or we can do animals (make an array of animals and randomize it)prefab
     public GameObject water_prefab;    // 
