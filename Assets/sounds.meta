@@ -1,6 +1,15 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: e4368ff397e164da5a67a6b642ec4f97
 folderAsset: yes
+=======
+<<<<<<< Updated upstream:Assets/Wooden_Canopy/Scenes/Canopy_DemoScene.unity.meta
+guid: d3af65f5cf0bcb440a44ff7a226c8560
+=======
+guid: e4368ff397e164da5a67a6b642ec4f97
+folderAsset: yes
+>>>>>>> Stashed changes:Assets/sounds.meta
+>>>>>>> Stashed changes
 DefaultImporter:
   externalObjects: {}
   userData: 
