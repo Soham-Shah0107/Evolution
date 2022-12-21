@@ -36,8 +36,11 @@ public class human : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
         if (player_health < 0.001f) // the player dies here
         {
+
             text_box.GetComponent<Text>().text = "Failed!";
             animation_controller.SetBool("death",true);
             //Implement a new screen. With option to play again.
@@ -100,6 +103,7 @@ public class human : MonoBehaviour
         
 
         scroll_bar.GetComponent<Scrollbar>().size = player_health;
+        Debug.Log(player_health);
         if (player_health < 0.5f)
         {
             ColorBlock cb = scroll_bar.GetComponent<Scrollbar>().colors;
@@ -180,8 +184,6 @@ public class human : MonoBehaviour
             // animation_controller.SetBool("gothit",true);
             // // Debug.Log(animation_controller.GetBool("gothit"));
             // WaitForAttackToFinish();
-            Debug.Log(xdirection);
-            Debug.Log(zdirection);
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
             GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * 4, 0.0f, zdirection * 4));
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
@@ -189,6 +191,14 @@ public class human : MonoBehaviour
             player_health -= 0.1f;
         }
         if(collision.gameObject.name == "Fox"){
+            text_box.GetComponent<Text>().text = "You got hit by the Fox";
+            xdirection = collision.gameObject.GetComponent<Bear>().xdirection;
+            zdirection = collision.gameObject.GetComponent<Bear>().zdirection;
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
+            GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * 4, 0.0f, zdirection * 4));
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
+            m_ObjectCollider = GetComponent<Collider>();
+            player_health -= 0.1f;
             Debug.Log("Its a fox");
         }
     //      Vector3 normal = collision.contacts[0].normal;
