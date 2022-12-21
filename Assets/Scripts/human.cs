@@ -18,8 +18,10 @@ public class human : MonoBehaviour
     public Vector3 movement_direction;
     public bool isIdle;
     Collider m_ObjectCollider;
+    public GameObject text_box;
     internal float player_health = 1.0f;
     public GameObject scroll_bar;
+    public Canvas new_screen;
     // bearMovement bearClass = null;
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,13 @@ public class human : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player_health < 0.001f) // the player dies here
+        {
+            text_box.GetComponent<Text>().text = "Failed!";
+            animation_controller.SetBool("death",true);
+            //Implement a new screen. With option to play again.
+        
+        }
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0f,transform.rotation.eulerAngles.y, 0f);
         if(isIdle){
             velocity = 0.0f;
@@ -152,7 +161,7 @@ public class human : MonoBehaviour
         GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * velocity * Time.deltaTime, 0.0f, zdirection * velocity * Time.deltaTime));
     }
     IEnumerator WaitForAttackToFinish(){
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         animation_controller.SetBool("gothit",false);
         // fps_player_obj.transform.position = new Vector3(pos.x-9, pos.y, pos.z);
     }
@@ -163,14 +172,18 @@ public class human : MonoBehaviour
     void OnCollisionEnter(Collision collision){
         Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
         if (collision.gameObject.name == "Bear"){
-            Debug.Log("bear collided with player");
+            text_box.GetComponent<Text>().text = "You got hit by the Bear";
             //Figure out a way to get xdirection and ydirection from Bear.cs
             //Tried alot do not get it
             xdirection = collision.gameObject.GetComponent<Bear>().xdirection;
             zdirection = collision.gameObject.GetComponent<Bear>().zdirection;
-            animation_controller.SetBool("gothit",true);
-            Debug.Log(animation_controller.GetBool("gothit"));
-            WaitForAttackToFinish();
+            // animation_controller.SetBool("gothit",true);
+            // // Debug.Log(animation_controller.GetBool("gothit"));
+            // WaitForAttackToFinish();
+            Debug.Log(xdirection);
+            Debug.Log(zdirection);
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
+            GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * 4, 0.0f, zdirection * 4));
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
             m_ObjectCollider = GetComponent<Collider>();
             player_health -= 0.1f;
