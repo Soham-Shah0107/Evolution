@@ -189,7 +189,7 @@ public class human : MonoBehaviour
             player_health -= 0.1f;
         }
         if(collision.gameObject.name == "Fox"){
-            Debug.Log("Its a fox");
+            // Debug.Log("Its a fox");
         }
     //      Vector3 normal = collision.contacts[0].normal;
 

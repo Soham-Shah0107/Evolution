@@ -71,7 +71,7 @@ public class Fox : MonoBehaviour
         //    Debug.Log("walk forward");
             animation_controller.SetBool("walk",true);
             animation_controller.SetBool("idle",false);
-            Vector3 targetDirection = -(fps_player_obj.transform.position - transform.position);
+            Vector3 targetDirection = (fps_player_obj.transform.position - transform.position);
             float singleStep = -velocity * Time.deltaTime;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
