@@ -23,7 +23,7 @@ public class Bear : MonoBehaviour
         animation_controller = GetComponent<Animator>();
         character_controller = GetComponent<CharacterController>();  
         level = GameObject.FindGameObjectWithTag("Level");
-        fps_player_obj = GameObject.Find("player");
+        fps_player_obj = GameObject.Find("Human");
         Bounds bounds = level.GetComponent<Collider>().bounds;
         radius_of_search_for_player = (bounds.size.x + bounds.size.z) / 10.0f;
         // Debug.Log(level.GetComponent<Collider>().bounds);
@@ -48,7 +48,7 @@ public class Bear : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(newDirection);
             Vector3 pos = fps_player_obj.transform.position;
             // We should have a textbox on top saying bear strike.
-            StartCoroutine(WaitForAttackToFinish(pos));
+            // StartCoroutine(WaitForAttackToFinish(pos));
             
         }
         else{
@@ -111,10 +111,10 @@ public class Bear : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("yes");
+        // Debug.Log("yes");
         // Debug.Log(collision.contacts);
         Vector3 normal = collision.contacts[0].normal;
-        Debug.Log("Yes");
+        // Debug.Log("Yes");
         //GetComponent<Rigidbody>().MovePosition(new Vector3(GetComponent<Rigidbody>().position[0] , 0.0f , GetComponent<Rigidbody>().position[2]));
     // Reflect the object's velocity off the surface
         // Vector3 reflectedVelocity = Vector3.Reflect(GetComponent<Rigidbody>().velocity, normal);
