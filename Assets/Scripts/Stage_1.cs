@@ -36,7 +36,8 @@ public class Stage_1 : MonoBehaviour
     public GameObject tree_prefab;
     public GameObject text_box;
     public GameObject scroll_bar;
-    public GameObject bushes_prefab;
+    public GameObject bushe1_prefab;
+    public GameObject bushe2_prefab;
     public GameObject mountain_prefab;
     public GameObject tiger_prefab;
     public GameObject kid; 
@@ -379,11 +380,17 @@ public class Stage_1 : MonoBehaviour
                 }
                 else if (solution[w, l][0] == TileType.BUSHES)
                 {
-                GameObject bush = Instantiate(bushes_prefab, new Vector3(0, -5, 0), Quaternion.identity);
-
-                //     GameObject bush = Instantiate(bushes_prefab, new Vector3(0, -5, 0), Quaternion.identity);
-                bush.name = "BUSH";
-                bush.transform.position = new Vector3(x + 0.5f, 0f, z + 0.5f);
+                    int v = Random.Range(0,2);
+                    if(v== 0){
+                    GameObject bush = Instantiate(bushe1_prefab, new Vector3(0, -5, 0), Quaternion.identity);
+                    bush.name = "BUSH1";
+                    bush.transform.position = new Vector3(x + 0.5f, 0f, z + 0.5f);
+                    }
+                    else{
+                    GameObject bush = Instantiate(bushe2_prefab, new Vector3(0, -5, 0), Quaternion.identity);
+                    bush.name = "BUSH2";
+                    bush.transform.position = new Vector3(x + 0.5f, 0f, z + 0.5f);
+                    }
                 }
                 //     Debug.Log(count);
                 //     count = count+1; 
