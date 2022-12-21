@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class tigerMovement : MonoBehaviour
+public class Tiger : MonoBehaviour
 {
-    // Start is called before the first frame update
     private GameObject fps_player_obj;
     private GameObject level;
     private float radius_of_search_for_player;
-    public float tiger_speed;
+    public float bear_speed;
     private Animator animation_controller;
     private CharacterController character_controller;
     public float velocity = 0.0f; 
-    public float walking_velocity = 1f;
+    public float walking_velocity = 5f;
     public float xdirection;
     public float zdirection;
      
+    // public GameObject level;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,40 +23,42 @@ public class tigerMovement : MonoBehaviour
         animation_controller = GetComponent<Animator>();
         character_controller = GetComponent<CharacterController>();  
         level = GameObject.FindGameObjectWithTag("Level");
-        fps_player_obj = GameObject.Find("player");
+        fps_player_obj = GameObject.Find("Human");
         Bounds bounds = level.GetComponent<Collider>().bounds;
         radius_of_search_for_player = (bounds.size.x + bounds.size.z) / 10.0f;
-        tiger_speed = level.GetComponent<Stage_1>().tiger_speed;
-       // fps_player_obj = level.fps_player_obj;
+        // Debug.Log(level.GetComponent<Collider>().bounds);
+        bear_speed = level.GetComponent<Stage_1>().bear_speed;
+        // fps_player_obj = level.fps_player_obj;
     }
 
-
+    // Update is called once per frame
+    IEnumerator WaitForAttackToFinish(Vector3 pos){
+        yield return new WaitForSeconds(1);
+        fps_player_obj.transform.position = new Vector3(pos.x-9, pos.y, pos.z);
+    }
     void Update()
     {
-        Vector3 pos = transform.position;
-        if(pos.y!=0.0f){
-            transform.position= new Vector3(pos.x, 0.0f, pos.z);
-        }
-        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1){
+        
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1.5){
             // Debug.Log("Should be attacking!!");
-            //animation_controller.SetTrigger("Attack1");
-            animation_controller.SetBool("hit",true);
-            animation_controller.SetBool("idle",false);
+            animation_controller.SetTrigger("Attack1");
             Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
             float singleStep = velocity * Time.deltaTime;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
+            Vector3 pos = fps_player_obj.transform.position;
+            // We should have a textbox on top saying bear strike.
+            // StartCoroutine(WaitForAttackToFinish(pos));
             
         }
         else{
-            animation_controller.SetBool("hit",false);
-            animation_controller.SetBool("idle",true);
+            animation_controller.SetBool("Idle",true);
         }
+        // Debug.Log(bounds.size.x);
+        // Debug.Log(Vector3.Distance(transform.position, fps_player_obj.transform.position));
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/1.5f){
 
-        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/1.25f){
-
-            animation_controller.SetBool("run",true);
-            animation_controller.SetBool("idle",false);
+            animation_controller.SetBool("Run Forward",true);
             Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
             float singleStep = velocity * Time.deltaTime;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
@@ -64,13 +66,12 @@ public class tigerMovement : MonoBehaviour
             run();
         }
         else{
-            animation_controller.SetBool("run",false);
-            animation_controller.SetBool("idle",true);
+            animation_controller.SetBool("Run Forward",false);
+            animation_controller.SetBool("Idle",true);
         }
         if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < radius_of_search_for_player/3.0f){
         //    Debug.Log("walk forward");
-            animation_controller.SetBool("walk",true);
-            animation_controller.SetBool("idle",false);
+           animation_controller.SetBool("WalkForward",true);
             Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
             float singleStep = velocity * Time.deltaTime;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
@@ -78,8 +79,8 @@ public class tigerMovement : MonoBehaviour
             walk_forward();
         }
         else{
-            animation_controller.SetBool("walk",false);
-            animation_controller.SetBool("idle",true);
+            animation_controller.SetBool("Run Forward",false);
+            animation_controller.SetBool("Idle",true);
         }
 
         xdirection = Mathf.Sin(Mathf.Deg2Rad * transform.rotation.eulerAngles.y);
@@ -108,4 +109,13 @@ public class tigerMovement : MonoBehaviour
         }
        transform.position=new Vector3(transform.position.x+ xdirection*velocity*Time.deltaTime, transform.position.y, transform.position.z+zdirection*velocity*Time.deltaTime);
     }
- }
+    private void OnCollisionEnter(Collision collision)
+    {
+        Vector3 normal = collision.contacts[0].normal;
+
+        if (collision.gameObject.name == "player")
+        {
+            Debug.Log("Namaster");
+        }
+    }
+}
