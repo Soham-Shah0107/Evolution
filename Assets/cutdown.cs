@@ -22,6 +22,7 @@ public class cutdown : MonoBehaviour
     public GameObject fox;
     public GameObject tiger;
     public GameObject fourth;
+    public GameObject firewood;
     private bool flag;
     void Update(){
         flag = Axe.GetComponent<pickup>().flag;
@@ -58,6 +59,8 @@ public class cutdown : MonoBehaviour
             bear.SetActive(true);
             fox.SetActive(true);
             gameObject.SetActive(false);
+            yield return new WaitForSeconds(1);
+            firewood.SetActive(true);
             // tiger.SetActive(true);
             // fourth.SetActive(true);
         }

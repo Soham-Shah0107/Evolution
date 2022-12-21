@@ -192,8 +192,8 @@ public class human : MonoBehaviour
         }
         if(collision.gameObject.name == "Fox"){
             text_box.GetComponent<Text>().text = "You got hit by the Fox";
-            xdirection = collision.gameObject.GetComponent<Bear>().xdirection;
-            zdirection = collision.gameObject.GetComponent<Bear>().zdirection;
+            xdirection = collision.gameObject.GetComponent<Fox>().xdirection;
+            zdirection = collision.gameObject.GetComponent<Fox>().zdirection;
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
             GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * 4, 0.0f, zdirection * 4));
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
