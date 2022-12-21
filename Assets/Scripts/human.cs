@@ -54,7 +54,7 @@ public class human : MonoBehaviour
          
         
         if(shiftPressed && upArrow){
-            Debug.Log("Should be running");
+            // Debug.Log("Should be running");
             animation_controller.SetBool("isRunning",true);
             // animation_controller.SetBool("toJump",true);
             run();
@@ -188,13 +188,16 @@ public class human : MonoBehaviour
             m_ObjectCollider = GetComponent<Collider>();
             player_health -= 0.1f;
         }
-         Vector3 normal = collision.contacts[0].normal;
+        if(collision.gameObject.name == "Fox"){
+            Debug.Log("Its a fox");
+        }
+    //      Vector3 normal = collision.contacts[0].normal;
 
-    // Reflect the object's velocity off the surface
-         Vector3 reflectedVelocity = Vector3.Reflect(GetComponent<Rigidbody>().velocity, normal);
+    // // Reflect the object's velocity off the surface
+    //      Vector3 reflectedVelocity = Vector3.Reflect(GetComponent<Rigidbody>().velocity, normal);
 
-    // Set the object's velocity to the reflected velocity
-       GetComponent<Rigidbody>().velocity = reflectedVelocity;
+    // // Set the object's velocity to the reflected velocity
+    //    GetComponent<Rigidbody>().velocity = reflectedVelocity;
     }
   
    
