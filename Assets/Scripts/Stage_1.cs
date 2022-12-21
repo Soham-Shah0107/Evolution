@@ -364,27 +364,30 @@ public class Stage_1 : MonoBehaviour
                     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                     GameObject tree = Instantiate(tree_prefab, new Vector3(0, -5, 0), Quaternion.identity);
                     tree.name = "TREE";
-                    tree.transform.localScale = new Vector3(0.2f ,0.6f, 0.2f);
+                    // tree.transform.localScale = new Vector3(0.2f ,0f, 0.2f);
                 // y= y + mountain_height / 2.0f
                     tree.transform.position = new Vector3(x + 0.5f, -2, z + 0.5f);
-                    BoxCollider boxc = tree.AddComponent<BoxCollider>();
-                    boxc.center = new Vector3(0,0,0);
-                    boxc.size = new Vector3(1,1,1);
-                    tree.AddComponent<noPassingThrough>();
-                    boxc.isTrigger = true;
+                    // BoxCollider boxc = tree.AddComponent<BoxCollider>();
+                    // boxc.center = new Vector3(0,0,0);
+                    // boxc.size = new Vector3(1,1,1);
+                    // tree.AddComponent<noPassingThrough>();
+                    // boxc.isTrigger = true;
                     // Rigidbody rigid = tree.AddComponent<Rigidbody> (); // To make trees fall
                     // rigid.collisionDetectionMode = CollisionDetectionMode.Continuous;
                     // rigid.isKinematic = false;
                     //cube.GetComponent<Renderer>().material.color = new Color(0.6f, 0.8f, 0.8f);
                 }
-                // else if (solution[w, l][0] == TileType.BUSHES)
-                // {
+                else if (solution[w, l][0] == TileType.BUSHES)
+                {
+                GameObject bush = Instantiate(bushes_prefab, new Vector3(0, -5, 0), Quaternion.identity);
+
+                //     GameObject bush = Instantiate(bushes_prefab, new Vector3(0, -5, 0), Quaternion.identity);
+                bush.name = "BUSH";
+                bush.transform.position = new Vector3(x + 0.5f, 0f, z + 0.5f);
+                }
                 //     Debug.Log(count);
                 //     count = count+1; 
-                //     //GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                //     GameObject bush = Instantiate(bushes_prefab, new Vector3(0, -5, 0), Quaternion.identity);
-                //     bush.name = "BUSH";
-                //     bush.transform.localScale = new Vector3(0.2f ,0.6f, 0.2f);
+                
                 // // y= y + mountain_height / 2.0f
                 //     bush.transform.position = new Vector3(x + 0.5f, -2, z + 0.5f);
                 //     bush.AddComponent<BoxCollider>();
