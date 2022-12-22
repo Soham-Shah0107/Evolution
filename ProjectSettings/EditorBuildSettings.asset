@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage_1.unity
     guid: b8a55939181f248df8d6a357fbba4068
+  - enabled: 1
+    path: Assets/Scenes/PlayAgain.unity
+    guid: 8721c12f05c044177af3da215134511c
+  - enabled: 1
+    path: Assets/Scenes/Game Begins.unity
+    guid: e946f2fe14dac42898cbcb3e7e414aac
+  - enabled: 1
+    path: Assets/Scenes/PausedScene.unity
+    guid: 75b3c68cd346d46578b0d27a9266bed4
   m_configObjects: {}

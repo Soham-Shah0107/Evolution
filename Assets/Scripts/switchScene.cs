@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class switchScene : MonoBehaviour
 {
+     
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class switchScene : MonoBehaviour
         Debug.Log("Entered");
         SceneManager.LoadScene("Menu");
     }
+    
 
     // Update is called once per frame
     void Update()
