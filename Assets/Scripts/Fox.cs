@@ -37,7 +37,7 @@ public class Fox : MonoBehaviour
         if(pos.y!=0.0f){
             transform.position= new Vector3(pos.x, 0.0f, pos.z);
         }
-        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 0.4){
+        if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1){
             // Debug.Log("Should be attacking!!");
             //animation_controller.SetTrigger("Attack1");
             animation_controller.SetBool("attack",true);
