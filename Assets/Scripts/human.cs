@@ -179,7 +179,7 @@ public class human : MonoBehaviour
 
     void OnCollisionEnter(Collision collision){
         Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
-        if (collision.gameObject.name == "Bear"){
+        if (collision.gameObject.name == "Bear"||collision.gameObject.name == "Bear 2"|| collision.gameObject.name == "Bear 3" ){
             GetComponent<AudioSource>().PlayOneShot(clip, 0.2f);
             text_box.GetComponent<Text>().text = "You got hit by the Bear";
             //Figure out a way to get xdirection and ydirection from Bear.cs
@@ -205,7 +205,19 @@ public class human : MonoBehaviour
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
             m_ObjectCollider = GetComponent<Collider>();
             player_health -= 0.1f;
-            Debug.Log("Its a fox");
+   
+        }
+        if(collision.gameObject.name == "Tiger 1" || collision.gameObject.name == "Tiger 2"){
+            GetComponent<AudioSource>().PlayOneShot(clip, 0.2f);
+            text_box.GetComponent<Text>().text = "You got hit by the Fox";
+            xdirection = collision.gameObject.GetComponent<Tiger>().xdirection;
+            zdirection = collision.gameObject.GetComponent<Tiger>().zdirection;
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
+            GetComponent<Rigidbody>().MovePosition(GetComponent<Rigidbody>().position + new Vector3(xdirection * 4, 0.0f, zdirection * 4));
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
+            m_ObjectCollider = GetComponent<Collider>();
+            player_health -= 0.1f;
+   
         }
     //      Vector3 normal = collision.contacts[0].normal;
 

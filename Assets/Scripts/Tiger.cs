@@ -11,7 +11,7 @@ public class Tiger : MonoBehaviour
     private Animator animation_controller;
     private CharacterController character_controller;
     public float velocity = 0.0f; 
-    public float walking_velocity = 5f;
+    public float walking_velocity = 2f;
     public float xdirection;
     public float zdirection;
      
@@ -41,7 +41,7 @@ public class Tiger : MonoBehaviour
         
         if (Vector3.Distance(transform.position, fps_player_obj.transform.position) < 1.5){
             // Debug.Log("Should be attacking!!");
-            animation_controller.SetTrigger("Attack1");
+            animation_controller.SetBool("Attack1", true);
             Vector3 targetDirection = fps_player_obj.transform.position - transform.position;
             float singleStep = velocity * Time.deltaTime;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
@@ -53,6 +53,7 @@ public class Tiger : MonoBehaviour
         }
         else{
             animation_controller.SetBool("Idle",true);
+            animation_controller.SetBool("Attack1", false);
         }
         // Debug.Log(bounds.size.x);
         // Debug.Log(Vector3.Distance(transform.position, fps_player_obj.transform.position));

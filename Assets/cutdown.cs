@@ -47,6 +47,8 @@ public class cutdown : MonoBehaviour
                 StartCoroutine(waiter());
                 bear.SetActive(false);
                 fox.SetActive(false);
+                GameObject txt = GameObject.Find("Human");
+        //        txt.GetComponent<human>().text_box.GetComponent<Text>().text = "You have the wood!!";
                 // tiger.SetActive(false);
                 // fourth.SetActive(false);
             }
