@@ -24,6 +24,7 @@ public class human : MonoBehaviour
     public Canvas new_screen;
     private AudioSource audioSource;
     public AudioClip clip;
+    public bool hasCut;
     // bearMovement bearClass = null;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class human : MonoBehaviour
         movement_direction = new Vector3(0.0f, 0.0f, 0.0f);
         walking_velocity = 2.5f;
         velocity = 0.0f;
+        hasCut = false;
     }
 
     // Update is called once per frame
@@ -107,7 +109,6 @@ public class human : MonoBehaviour
         
 
         scroll_bar.GetComponent<Scrollbar>().size = player_health;
-        Debug.Log(player_health);
         if (player_health < 0.5f)
         {
             ColorBlock cb = scroll_bar.GetComponent<Scrollbar>().colors;
@@ -209,7 +210,7 @@ public class human : MonoBehaviour
         }
         if(collision.gameObject.name == "Tiger 1" || collision.gameObject.name == "Tiger 2"){
             GetComponent<AudioSource>().PlayOneShot(clip, 0.2f);
-            text_box.GetComponent<Text>().text = "You got hit by the Fox";
+            text_box.GetComponent<Text>().text = "You got hit by the Tiger";
             xdirection = collision.gameObject.GetComponent<Tiger>().xdirection;
             zdirection = collision.gameObject.GetComponent<Tiger>().zdirection;
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);

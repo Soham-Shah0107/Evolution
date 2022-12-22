@@ -787,7 +787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bear_speed: 0
   velocity: 0
-  walking_velocity: 1
+  walking_velocity: 4
   xdirection: 0
   zdirection: 0
 --- !u!23 &191481393
@@ -2734,7 +2734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bear_speed: 0
   velocity: 0
-  walking_velocity: 5
+  walking_velocity: 9
   xdirection: 0
   zdirection: 0
 --- !u!54 &1133919721
@@ -2963,7 +2963,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fox_speed: 0
   velocity: 0
-  walking_velocity: 1
+  walking_velocity: 3
   xdirection: 0
   zdirection: 0
 --- !u!4 &1216325833 stripped
@@ -3059,7 +3059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bear_speed: 0
   velocity: 0
-  walking_velocity: 1
+  walking_velocity: 3
   xdirection: 0
   zdirection: 0
 --- !u!23 &1271508132
@@ -3409,6 +3409,7 @@ MonoBehaviour:
   scroll_bar: {fileID: 2095765398}
   new_screen: {fileID: 0}
   clip: {fileID: 8300000, guid: bca38e04afd05418885a795b1c0e73b4, type: 3}
+  hasCut: 0
 --- !u!64 &1449746255
 MeshCollider:
   m_ObjectHideFlags: 0

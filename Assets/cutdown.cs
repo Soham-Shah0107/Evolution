@@ -5,16 +5,17 @@ using UnityEngine;
 public class cutdown : MonoBehaviour
 {
     // Start is called before the first frame update
-    // void Start()
-    // {
-        
-    // }
+    void Start()
+    {
+         humanControl= GameObject.Find("Human").GetComponent<human>(); 
+    }
 
     // // Update is called once per frame
     // void Update()
     // {
         
     // }
+    human humanControl;
     public Animator animation_controller;
     public GameObject player;
     public GameObject Axe;
@@ -23,6 +24,7 @@ public class cutdown : MonoBehaviour
     public GameObject tiger;
     public GameObject fourth;
     public GameObject firewood;
+    bool hasCut;
     private bool flag;
     void Update(){
         flag = Axe.GetComponent<pickup>().flag;
@@ -46,6 +48,7 @@ public class cutdown : MonoBehaviour
                 // Debug.Log(animation_controller.IsPlaying("MiningLoop"));
                 StartCoroutine(waiter());
                 bear.SetActive(false);
+                humanControl.hasCut = true;
                 fox.SetActive(false);
                 GameObject txt = GameObject.Find("Human");
         //        txt.GetComponent<human>().text_box.GetComponent<Text>().text = "You have the wood!!";

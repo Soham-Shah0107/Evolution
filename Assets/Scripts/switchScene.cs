@@ -19,6 +19,10 @@ public class switchScene : MonoBehaviour
         Debug.Log("Entered");
         SceneManager.LoadScene("Menu");
     }
+    public void onClickChangeScene3(){
+        Debug.Log("Entered");
+        SceneManager.LoadScene("stage_2");
+    }
     
 
     // Update is called once per frame
