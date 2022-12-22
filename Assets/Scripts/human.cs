@@ -44,6 +44,8 @@ public class human : MonoBehaviour
             text_box.GetComponent<Text>().text = "Failed!";
             animation_controller.SetBool("death",true);
             //Implement a new screen. With option to play again.
+            SceneManager.LoadScene("PlayAgain");
+            Start();
         
         }
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0f,transform.rotation.eulerAngles.y, 0f);
