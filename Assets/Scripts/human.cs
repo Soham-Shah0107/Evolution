@@ -22,6 +22,8 @@ public class human : MonoBehaviour
     internal float player_health = 1.0f;
     public GameObject scroll_bar;
     public Canvas new_screen;
+    private AudioSource audioSource;
+    public AudioClip clip;
     // bearMovement bearClass = null;
     // Start is called before the first frame update
     void Start()
@@ -178,6 +180,7 @@ public class human : MonoBehaviour
     void OnCollisionEnter(Collision collision){
         Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
         if (collision.gameObject.name == "Bear"){
+            GetComponent<AudioSource>().PlayOneShot(clip, 0.2f);
             text_box.GetComponent<Text>().text = "You got hit by the Bear";
             //Figure out a way to get xdirection and ydirection from Bear.cs
             //Tried alot do not get it
@@ -193,6 +196,7 @@ public class human : MonoBehaviour
             player_health -= 0.1f;
         }
         if(collision.gameObject.name == "Fox"){
+            GetComponent<AudioSource>().PlayOneShot(clip, 0.2f);
             text_box.GetComponent<Text>().text = "You got hit by the Fox";
             xdirection = collision.gameObject.GetComponent<Fox>().xdirection;
             zdirection = collision.gameObject.GetComponent<Fox>().zdirection;

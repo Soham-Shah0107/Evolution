@@ -41,7 +41,7 @@ public class Stage_1 : MonoBehaviour
     public GameObject mountain_prefab;
     public GameObject tiger_prefab;
     public GameObject kid; 
-    private AudioSource source;
+    
     public Canvas new_screen;
     public Material grass;
     int wr;
