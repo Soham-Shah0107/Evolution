@@ -6,12 +6,11 @@ TagManager:
   tags:
   - Level
   - Enemy
-  - Fire
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - fire
+  - 
   - Water
   - UI
   - 
